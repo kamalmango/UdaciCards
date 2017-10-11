@@ -1,4 +1,4 @@
-export const RECEIVE_DECKS = 'RECEIVE_ENTRIES'
+export const RECEIVE_DECKS = 'RECEIVE_DECKS'
 
 export function receiveDecks (decks) {
   return {

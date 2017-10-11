@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
+import { StyleSheet, Text, View, AsyncStorage } from 'react-native'
 import { TabNavigator } from 'react-navigation'
 import { getDecks } from './utils/api'
 import { createStore } from 'redux'
@@ -44,29 +44,15 @@ const Tabs = TabNavigator({
   }
 })
  
-
 export default class App extends React.Component {
-  componentDidMount () {
-    getDecks().then(result => { console.warn('yoooooo  ', result) })
-  }
-
   render() {
     return (
       <Provider store={createStore(reducer)}>
-        <View style={styles.container}>
-          <Text>hi</Text>
+        <View style={{flex: 1}}>
           <Tabs />
         </View>
       </Provider>
-    );
+    )
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
