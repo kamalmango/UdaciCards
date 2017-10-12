@@ -1,12 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View, AsyncStorage } from 'react-native'
-import { TabNavigator } from 'react-navigation'
+import { TabNavigator, StackNavigator } from 'react-navigation'
 import { getDecks } from './utils/api'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
 import { receiveDecks } from './actions'
 import Decks from './components/organisms/Decks'
+import Deck from './components/organisms/Deck'
 
 const UdaciDecks = {
   React: {
@@ -35,12 +36,24 @@ const UdaciDecks = {
 
 AsyncStorage.setItem('UdaciCards', JSON.stringify(UdaciDecks))
 
-const Tabs = TabNavigator({
-  Decks: {
+// const Tabs = TabNavigator({
+//   Decks: {
+//     screen: Decks,
+//     navigationOptions: {
+//       tabBarLabel: 'DECKS'
+//     }
+//   }
+// })
+
+const MainNavigator = StackNavigator({
+  Home: {
     screen: Decks,
     navigationOptions: {
-      tabBarLabel: 'DECKS'
+      title: 'DECKS'
     }
+  },
+  Deck: {
+    screen: Deck
   }
 })
  
@@ -49,7 +62,7 @@ export default class App extends React.Component {
     return (
       <Provider store={createStore(reducer)}>
         <View style={{flex: 1}}>
-          <Tabs />
+          <MainNavigator />
         </View>
       </Provider>
     )
