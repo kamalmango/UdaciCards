@@ -8,6 +8,7 @@ import reducer from './reducers'
 import { receiveDecks } from './actions'
 import Decks from './components/organisms/Decks'
 import Deck from './components/organisms/Deck'
+import NewDeck from './components/organisms/NewDeck'
 
 const UdaciDecks = {
   React: {
@@ -36,18 +37,24 @@ const UdaciDecks = {
 
 AsyncStorage.setItem('UdaciCards', JSON.stringify(UdaciDecks))
 
-// const Tabs = TabNavigator({
-//   Decks: {
-//     screen: Decks,
-//     navigationOptions: {
-//       tabBarLabel: 'DECKS'
-//     }
-//   }
-// })
+const Tabs = TabNavigator({
+  Decks: {
+    screen: Decks,
+    navigationOptions: {
+      tabBarLabel: 'DECKS'
+    }
+  },
+  NewDeck: {
+    screen: NewDeck,
+    navigationOptions: {
+      tabBarLabel: 'NEW DECK'
+    }
+  }
+})
 
 const MainNavigator = StackNavigator({
   Home: {
-    screen: Decks,
+    screen: Tabs,
     navigationOptions: {
       title: 'DECKS'
     }

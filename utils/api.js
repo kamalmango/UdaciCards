@@ -9,7 +9,17 @@ export function getDeck (id) {
 }
 
 export function saveDeckTitle (title) {
-  return AsyncStorage.setItem()
+  console.warn('title ', title)
+  return AsyncStorage.getItem('UdaciCards')
+    .then(results => {
+      const data = JSON.parse(results)
+      data[title] = {
+        title,
+        questions: []
+      }
+      // console.warn('dataa ', data)
+      AsyncStorage.setItem('UdaciCards', JSON.stringify(data))
+    })
 }
 
 export function addCardToDeck (title, card) {
