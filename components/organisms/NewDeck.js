@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { View, 
          Text, 
          StyleSheet, 
          TouchableOpacity,
          TextInput,
          KeyboardAvoidingView } from 'react-native'
+import { addDeck } from '../../actions'
 import { saveDeckTitle } from '../../utils/api'
+import { NavigationActions } from 'react-navigation'
 
 class NewDeck extends Component {
   state = {
@@ -18,10 +21,19 @@ class NewDeck extends Component {
   }
   handleSubmit = (input) => {
     saveDeckTitle(input)
+    const newDeck = {
+      [input]: {
+        title: input,
+        questions: []
+      }
+    }
+    this.props.addDeck(newDeck)
+    this.props.navigation.dispatch(NavigationActions.back({
+      key: 'Decks'
+    }))
   }
   render () {
     const { input } = this.state
-    console.warn('inputtttttt!!!!!! ', input)
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.newDeck}>
         <Text style={styles.question}>What is the title of your new deck?</Text>
@@ -67,4 +79,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default NewDeck
+export default connect(null, { addDeck })(NewDeck)

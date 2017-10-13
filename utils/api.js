@@ -9,7 +9,6 @@ export function getDeck (id) {
 }
 
 export function saveDeckTitle (title) {
-  console.warn('title ', title)
   return AsyncStorage.getItem('UdaciCards')
     .then(results => {
       const data = JSON.parse(results)
