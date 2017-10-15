@@ -9,6 +9,7 @@ import { receiveDecks } from './actions'
 import Decks from './components/organisms/Decks'
 import Deck from './components/organisms/Deck'
 import NewDeck from './components/organisms/NewDeck'
+import NewQuestion from './components/organisms/NewQuestion'
 
 const UdaciDecks = {
   React: {
@@ -61,6 +62,9 @@ const MainNavigator = StackNavigator({
   },
   Deck: {
     screen: Deck
+  },
+  NewQuestion: {
+    screen: NewQuestion
   }
 })
  
