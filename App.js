@@ -10,6 +10,7 @@ import Decks from './components/organisms/Decks'
 import Deck from './components/organisms/Deck'
 import NewDeck from './components/organisms/NewDeck'
 import NewQuestion from './components/organisms/NewQuestion'
+import Quiz from './components/organisms/Quiz'
 
 const UdaciDecks = {
   React: {
@@ -65,6 +66,9 @@ const MainNavigator = StackNavigator({
   },
   NewQuestion: {
     screen: NewQuestion
+  },
+  Quiz: {
+    screen: Quiz
   }
 })
  

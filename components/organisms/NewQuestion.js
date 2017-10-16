@@ -24,8 +24,9 @@ class NewQuestion extends Component {
     }))
   }
   handleSubmit = (card) => {
-    addCardToDeck('JavaScript', card)
-    this.props.addCard('JavaScript', card)
+    const { title } = this.props.navigation.state.params
+    addCardToDeck(title, card)
+    this.props.addCard(title, card)
     this.props.navigation.goBack()
   }
   render () {
