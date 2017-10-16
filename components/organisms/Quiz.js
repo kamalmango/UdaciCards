@@ -3,34 +3,50 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 
 class Quiz extends Component {
   state = {
-    answer: false
+    answer: false,
+    num: 0,
+    score: 0,
+    done: false
   }
   handlePress = () => {
-    this.setState({answer: !this.state.answer})
+    this.setState({ answer: !this.state.answer })
+  }
+  handleButtonPress = (correct) => {
+    const { questions } = this.props.navigation.state.params
+    this.setState({ num: this.state.num + 1 })
+    questions.length - this.state.num === 1 && this.setState({ done: true })
+    correct === 'correct' && this.setState({ score: this.state.score + 1 })
   }
   render () {
     const { questions } = this.props.navigation.state.params
-    const { answer } = this.state
+    const { answer, num, done, score } = this.state
     return (
       <View>
-        {!answer && 
-          <View>
-            <Text>{questions[0].question}</Text>
-            <TouchableOpacity onPress={this.handlePress}><Text style={styles.switch}>Answer</Text></TouchableOpacity>
-          </View>
-        }
-        {answer && 
-          <View>
-            <Text>{questions[0].answer}</Text>
-            <TouchableOpacity onPress={this.handlePress}><Text style={styles.switch}>Question</Text></TouchableOpacity>
-          </View>
-        }
-        <TouchableOpacity style={styles.correctButton}>
-          <Text style={styles.buttonText}>Correct</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.incorrectButton}>
-          <Text style={styles.buttonText}>Incorrect</Text>
-        </TouchableOpacity>
+        {!done ? <View>
+          <Text>{num+1}/{questions.length}</Text>
+          {!answer && 
+            <View>
+              <Text>{questions[num].question}</Text>
+              <TouchableOpacity onPress={this.handlePress}><Text style={styles.switch}>Answer</Text></TouchableOpacity>
+            </View>
+          }
+          {answer && 
+            <View>
+              <Text>{questions[num].answer}</Text>
+              <TouchableOpacity onPress={this.handlePress}><Text style={styles.switch}>Question</Text></TouchableOpacity>
+            </View>
+          }
+          <TouchableOpacity style={styles.correctButton} onPress={() => this.handleButtonPress('correct')}>
+            <Text style={styles.buttonText}>Correct</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.incorrectButton} onPress={this.handleButtonPress}>
+            <Text style={styles.buttonText}>Incorrect</Text>
+          </TouchableOpacity>
+        </View> : 
+        <View>
+          <Text>You Scored:</Text>
+          <Text>{(score/questions.length) * 100}%</Text>
+        </View>}
       </View>
     )
   }
