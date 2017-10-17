@@ -11,6 +11,7 @@ import Deck from './components/organisms/Deck'
 import NewDeck from './components/organisms/NewDeck'
 import NewQuestion from './components/organisms/NewQuestion'
 import Quiz from './components/organisms/Quiz'
+import { Ionicons, Entypo } from '@expo/vector-icons'
 
 const UdaciDecks = {
   React: {
@@ -43,13 +44,15 @@ const Tabs = TabNavigator({
   Decks: {
     screen: Decks,
     navigationOptions: {
-      tabBarLabel: 'DECKS'
+      tabBarLabel: 'DECKS',
+      tabBarIcon: ({ tintColor }) => <Ionicons name='ios-paper' size={30} color={tintColor} />
     }
   },
   NewDeck: {
     screen: NewDeck,
     navigationOptions: {
-      tabBarLabel: 'NEW DECK'
+      tabBarLabel: 'NEW DECK',
+      tabBarIcon: ({ tintColor }) => <Entypo name='plus' size={30} color={tintColor} />
     }
   }
 })
@@ -68,7 +71,10 @@ const MainNavigator = StackNavigator({
     screen: NewQuestion
   },
   Quiz: {
-    screen: Quiz
+    screen: Quiz,
+    navigationOptions: {
+      title: 'QUIZ'
+    }
   }
 })
  
