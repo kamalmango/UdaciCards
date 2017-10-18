@@ -27,7 +27,7 @@ class NewDeck extends Component {
       }
     }
     this.props.addDeck(newDeck)
-    this.props.navigation.goBack()
+    this.props.navigation.navigate('Deck', { deck: newDeck[input] })
   }
   render () {
     const { input } = this.state

@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, AsyncStorage } from 'react-native'
+
+const NOTIFICATION_KEY = 'UdaciCards:notifications'
 
 class Quiz extends Component {
   state = {
@@ -8,13 +10,20 @@ class Quiz extends Component {
     score: 0,
     done: false
   }
+  clearLocalNotification () {
+    return AsyncStorage.removeItem(NOTIFICATION_KEY)
+      .then(Notifications.cancelAllScheduledNotificationsAsync)
+  }
   handlePress = () => {
     this.setState({ answer: !this.state.answer })
   }
   handleButtonPress = (correct) => {
     const { questions } = this.props.navigation.state.params
     this.setState({ num: this.state.num + 1 })
-    questions.length - this.state.num === 1 && this.setState({ done: true })
+    if (questions.length - this.state.num === 1) {
+      this.setState({ done: true })
+      this.clearLocalNotification()
+    }
     correct === 'correct' && this.setState({ score: this.state.score + 1 })
   }
   render () {
@@ -48,6 +57,12 @@ class Quiz extends Component {
         <View style={styles.scoreContainer}>
           <Text style={styles.scoreText}>You Scored:</Text>
           <Text style={styles.score}>{(score/questions.length) * 100}%</Text>
+          <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Quiz', { questions })}>
+            <Text style={styles.buttonText}>Restart Quiz</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.goBack()}>
+            <Text style={styles.buttonText}>Go Back</Text>
+          </TouchableOpacity>
         </View>}
       </View>
     )
@@ -87,6 +102,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginLeft: 50,
     marginRight: 50
+  },
+  button: {
+    padding: 10,
+    backgroundColor: 'black',
+    borderRadius: 5,
+    margin: 20,
   },
   buttonText: {
     color: 'white',
