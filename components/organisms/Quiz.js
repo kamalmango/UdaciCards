@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, AsyncStorage } from 'react-native'
+import { Notifications } from 'expo'
 
 const NOTIFICATION_KEY = 'UdaciCards:notifications'
 

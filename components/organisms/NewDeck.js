@@ -11,7 +11,7 @@ import { NavigationActions } from 'react-navigation'
 
 class NewDeck extends Component {
   state = {
-    input: 'Deck Title'
+    input: ''
   }
   handleTextChange = (input) => {
     this.setState(() => ({
@@ -38,6 +38,7 @@ class NewDeck extends Component {
           value={input}
           style={styles.input} 
           onChangeText={this.handleTextChange}
+          placeholder='Deck Title'
         />
         <TouchableOpacity style={styles.button} onPress={() => this.handleSubmit(input)}>
           <Text style={styles.buttonText}>Submit</Text>

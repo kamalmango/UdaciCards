@@ -11,8 +11,8 @@ import { addCardToDeck } from '../../utils/api'
 
 class NewQuestion extends Component {
   state = {
-    question: 'Enter question here',
-    answer: 'Enter answer here'
+    question: '',
+    answer: ''
   }
   handleQuestionChange = (question) => {
     this.setState(() => ({
@@ -39,11 +39,13 @@ class NewQuestion extends Component {
             value={question}
             onChangeText={this.handleQuestionChange}
             style={styles.input}
+            placeholder='Enter question here'
           />
           <TextInput 
             value={answer}
             onChangeText={this.handleAnswerChange}
             style={styles.input}
+            placeholder='Enter answer here'
           />
         </View>
         <TouchableOpacity style={styles.button} onPress={() => this.handleSubmit(this.state)}>
